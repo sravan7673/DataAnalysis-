@@ -1,0 +1,9 @@
+SELECT *
+from rental
+where staff_id=(select staff_id from staff
+where username='Mike');
+
+select *
+from staff s inner join store t
+on s.store_id = t.store_id
+where manager_staff_id = 1;

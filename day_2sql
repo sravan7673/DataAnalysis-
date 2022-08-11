@@ -1,0 +1,60 @@
+--For each store, display the number of customers that are members of
+--that store.
+
+select *
+FROM Customer a inner join store c on a.store_id= c.store_id
+where Customer_id=manager_staff_id
+
+--Display the customer names that share the same address
+
+create view order_123
+as
+select c last_name, c first_name, c customeer_id, a address
+from address a inner join customer c
+on c.address_id = a.address_id
+
+select c last_name, c first_name from order_123 a inner join order_123 c on a.address = c.address
+
+--display customer lastname, firstname whose rentalid is greater than
+2500
+
+select last_name,first_name
+from customer c inner join rental r on c.Customer_id=r.customer_id
+where rental_id > 2500;
+
+--Display payment amount,paymentdate of customer whose lastname is
+--Miller
+
+SELECT amount,payment_date
+FROM payment
+WHERE customer_id=(select customer_id from Customer
+where last_name='Miller');
+
+
+--NORTHWIND
+
+--Display avgof unitprices for all the categories of the products
+
+select productname,categoryid, avg(unitprice)
+over(partition by categoryid) as kkk from products;
+
+--Display all emp details whose shippeddate greater than 1996-11-27
+
+select *
+from  employees a inner join orders c on a.employeeid = c.employeeid
+where shippeddate > '1996-11-27'
+
+--Display Employee firstname,Customerid whose customer is in city –
+--London
+
+select  firstname, customerid
+from employees e inner join customers c
+on e.city = c.city
+where e.city = 'London';
+
+--Display all orderids whose companyname starts with B
+
+select *
+from orders o inner join customers c
+on o.customerid = c.customerid
+where companyname = '_B%';
